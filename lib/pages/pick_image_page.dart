@@ -242,11 +242,19 @@ class _PickImagePageState extends State<PickImagePage> {
       width: double.infinity,
       margin: EdgeInsets.only(top: 20),
       child: ElevatedButton(
-        onPressed: () {
-          // TODO: Add background removal logic here
+        onPressed: () async {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => Center(child: CircularProgressIndicator()),
+          );
+          // Simulate processing delay
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.of(context).pop(); // Close the loading dialog
+
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text("Processing image...")));
+          ).showSnackBar(SnackBar(content: Text("Background removed (demo)!")));
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
